@@ -23,8 +23,23 @@ store.open()
 File file = new File(searchHome+File.separatorChar+"conf"+File.separatorChar+config.value("collection")+File.separatorChar+"collection.cfg.start.urls")
 
 def line
+// counter for update status checks
+def i=0
+
 file.withReader { reader ->
     while ((line = reader.readLine())!=null) {
+
+	// Update the collection update status, and monitor for stop requests
+        if ((i % 100) == 0)
+        {
+                // Check to see if the update has been stopped
+                if (config.isUpdateStopped()) {
+                        store.close()
+                        throw new RuntimeException("Update stop requested by user.");
+                }
+                config.setProgressMessage("Processed "+i+" records");
+        }
+
 
         println "Gathering JSON for "+line;
 
@@ -38,6 +53,7 @@ file.withReader { reader ->
         def xmlContent = XMLUtils.fromString("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<json>"+xml+"\n</json>")
 
         store.add(new XmlRecord(xmlContent, line))
+	i++
     }
 }
 // close() required for the store to be flushed
