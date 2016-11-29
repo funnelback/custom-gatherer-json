@@ -7,6 +7,11 @@ import java.net.URL;
 
 //JSON imports
 import org.json.*;
+/****
+// Downloads JSON files listed in collection.cfg.start.urls and converts them to XML
+// Author: Peter Levan, Sep 2016
+// Version: 0.2, Nov 2016
+***/
 
 // Read $SEARCH_HOME
 def searchHome = Environment.getValidSearchHome().getCanonicalPath();
