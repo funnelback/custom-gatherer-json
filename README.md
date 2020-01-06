@@ -1,16 +1,13 @@
 # JSON custom gatherer
 
-Downloads JSON from URLs listed in collection.cfg.start.urls and stores them internally as XML.
+Note: if you are using Funnelback 15.10 or newer you should use the built-in JSONToXML filter with a web collection instead of using this custom gatherer.
 
-Custom collection.cfg options: none
+Custom gatherer for use with a custom collection for download of json files.
+
+Add URLs for JSON to fetch to collection.cfg.start.urls file.  Format is 1 URL per line.  Each URL is fetched and the JSON is converted to XML.
 
 Note: you need to set the following collection.cfg option otherwise cache copies will not work:
 
 ```
 store.record.type=XmlRecord
 ```
-
-However you need to create a collection.cfg.start.urls file and list the URLs to download, 1 URL per line (same format as used by a web collection).
-
-
-
